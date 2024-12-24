@@ -3,7 +3,6 @@ package com.pxml.main;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
@@ -13,16 +12,14 @@ import java.util.Map;
 public class XmlUtils {
     public static Map<String, Map<String, Object>> getObjectFromXML(String path) {
         File file = new File(path);
-        FileInputStream fileInputStream = null;
         Map<String, Map<String, Object>> map = new HashMap<>();
-        try {
-            fileInputStream = new FileInputStream(file);
+        try (FileInputStream fileInputStream=new FileInputStream(file)){
             SAXReader saxReader = new SAXReader();
             Document read = saxReader.read(fileInputStream);
             Element rootElement = read.getRootElement();
             getElement(rootElement, map);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return map;
     }
