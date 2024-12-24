@@ -35,12 +35,13 @@ public class XmlUtils {
         Map<String, Object> subMap = new HashMap<>();
         String name = element.getName();
         for (Element el : elements) {
-            if (!el.getData().toString().trim().equals("")) {
+            if (!el.getData().toString().trim().isEmpty() && el.getName()!=null) {
                 subMap.put(el.getName(), el.getData().toString().trim().replace("\n", ""));
-                map.put(name, subMap);
             }
             getElement(el, map);
         }
+        name = map.containsKey(name) ? element.getParent().getName() + name : name;
+        map.put(name, subMap);
     }
 }
 
