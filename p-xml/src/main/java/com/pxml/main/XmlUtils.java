@@ -44,7 +44,7 @@ public class XmlUtils {
         map.put(name, subMap);
     }
 
-    public void insertElementToRoot(String path, String nodeName, String nodeValue) {
+    public static void insertElementToRoot(String path, String nodeName, String nodeValue) {
         SAXReader saxReader = new SAXReader();
         try {
             Document document = saxReader.read(new File(path));
